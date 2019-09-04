@@ -21,7 +21,7 @@ enum ListPhoneModels {
 
         struct ViewModel {
             var success: Bool
-            var Array: Array<displayedPhone>
+            var Array: Array<DisplayedPhone>
         }
     }
 
@@ -42,7 +42,7 @@ enum ListPhoneModels {
 
         struct ViewModel {
            
-            var Array: Array<displayedPhone>
+            var Array: Array<DisplayedPhone>
         }
     }
 
@@ -50,7 +50,7 @@ enum ListPhoneModels {
 }
 
 
-struct displayedPhone {
+struct DisplayedPhone: Equatable {
     let id: Int
     let name: String
     let price: Float
@@ -59,7 +59,7 @@ struct displayedPhone {
     let description: String
 }
 
-struct getIndex {
+struct GetIndex {
     
     struct Request {
         var indexPath: Int

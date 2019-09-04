@@ -21,7 +21,7 @@ class PhoneTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func configCell(phone: displayedPhone) {
+    func configCell(phone: DisplayedPhone) {
         nameLabel.text = phone.name
         descriptLabel.text = phone.description
         priceLabel.text = "Price: $\(phone.price)"

@@ -10,7 +10,7 @@ import UIKit
 protocol ListPhoneInteractorInterface {
     func getApi(request: ListPhoneModels.GetMobileList.Request)
     func getApiSorting(request: ListPhoneModels.SortListPhone.Request)
-    func selectedPhone(request: getIndex.Request)
+    func selectedPhone(request: GetIndex.Request)
     var phones: [ApiPhone] { get set }
     var selectedItem: ApiPhone? { get set }
 }
@@ -20,9 +20,9 @@ class ListPhoneInteractor: ListPhoneInteractorInterface {
     var phones: [ApiPhone] = []
     weak var viewController: ListPhoneViewController!
     var presenter: ListPhonePresenterInterface!
-    var selectedPhone: displayedPhone?
+    var selectedPhone: DisplayedPhone?
 
-    func selectedPhone(request: getIndex.Request) {
+    func selectedPhone(request: GetIndex.Request) {
         selectedItem = phones[request.indexPath]
         self.presenter.presentNavigate()
     }

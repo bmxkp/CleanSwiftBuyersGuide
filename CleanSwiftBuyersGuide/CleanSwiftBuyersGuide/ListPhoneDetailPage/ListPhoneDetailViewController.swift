@@ -23,7 +23,7 @@ class ListPhoneDetailViewController: UIViewController, ListPhoneViewDetailContro
 
     var router: ListPhoneDetailRouter!
     var interactor: ListPhoneDetailInteractorInterface!
-    var phones: displayedPhone?
+    var phones: DisplayedPhone?
     var phone: ApiPhone?
     var displayedImages: [ApiImages] = []
 

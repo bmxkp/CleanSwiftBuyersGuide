@@ -14,23 +14,26 @@ protocol ListPhonePresenterInterface {
 }
 
 class ListPhonePresenter: ListPhonePresenterInterface {
+    
+    weak var viewController: ListPhoneViewControllerInterface!
+    
     func presentNavigate() {
         viewController.displayNavigateView()
     }
 
     func presentListPhoneSorting(response: ListPhoneModels.SortListPhone.Response) {
-        let displayedPhoneReponse: [displayedPhone] = response.Array.map { phone in
-            displayedPhone(id: phone.id, name: phone.name, price: phone.price, thumbImageURL: phone.thumbImageURL, rating: phone.rating, description: phone.description)
+        let displayedPhoneReponse: [DisplayedPhone] = response.Array.map { phone in
+            DisplayedPhone(id: phone.id, name: phone.name, price: phone.price, thumbImageURL: phone.thumbImageURL, rating: phone.rating, description: phone.description)
         }
         let displayedPhoneView = ListPhoneModels.GetMobileList.ViewModel(success: true, Array: displayedPhoneReponse)
         viewController.displayListPhone(viewModel: displayedPhoneView)
     }
 
-    weak var viewController: ListPhoneViewControllerInterface!
+    
 
     func presentListPhone(response: ListPhoneModels.GetMobileList.Response) {
-        let displayedPhoneReponse: [displayedPhone] = response.Array.map { phone in
-            displayedPhone(id: phone.id, name: phone.name, price: phone.price, thumbImageURL: phone.thumbImageURL, rating: phone.rating, description: phone.description)
+        let displayedPhoneReponse: [DisplayedPhone] = response.Array.map { phone in
+            DisplayedPhone(id: phone.id, name: phone.name, price: phone.price, thumbImageURL: phone.thumbImageURL, rating: phone.rating, description: phone.description)
         }
         let displayedPhoneView = ListPhoneModels.GetMobileList.ViewModel(success: true, Array: displayedPhoneReponse)
         viewController.displayListPhone(viewModel: displayedPhoneView)

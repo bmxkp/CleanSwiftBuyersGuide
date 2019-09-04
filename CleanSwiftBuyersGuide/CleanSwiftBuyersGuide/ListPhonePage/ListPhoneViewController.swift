@@ -14,7 +14,7 @@ protocol ListPhoneViewControllerInterface: class {
 }
 
 class ListPhoneViewController: UIViewController, ListPhoneViewControllerInterface {
-    var displayedView: [displayedPhone] = []
+    var displayedView: [DisplayedPhone] = []
 
     @IBOutlet var tableView: UITableView!
     var interactor: ListPhoneInteractorInterface!
@@ -112,7 +112,7 @@ extension ListPhoneViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PhoneTableViewCell.CellIdentifier, for: indexPath) as? PhoneTableViewCell else {
             return UITableViewCell()
         }
-        let phone: displayedPhone = displayedView[indexPath.item]
+        let phone: DisplayedPhone = displayedView[indexPath.item]
         cell.configCell(phone: phone)
         return cell
     }
@@ -121,6 +121,6 @@ extension ListPhoneViewController: UITableViewDataSource {
 extension ListPhoneViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        interactor.selectedPhone(request: getIndex.Request(indexPath: indexPath.row))
+        interactor.selectedPhone(request: GetIndex.Request(indexPath: indexPath.row))
     }
 }

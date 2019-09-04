@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 
 //import SwiftyJSON
-struct ApiPhone {
+struct ApiPhone: Equatable {
     let id : Int
     let name: String
     let price: Float

@@ -6,7 +6,7 @@
 //  Copyright © 2562 SCBiOS. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol ListPhoneDetailInteractorInterface {
     func getData(Request: ListDetailPhoneModels.SetMobileList.Request)
@@ -34,11 +34,10 @@ class ListPhoneDetailInteractor: ListPhoneDetailInteractorInterface {
                 self?.images = image
                 let response = GetImage.Response(success: true, Array: image)
                 self?.presenter.presentImages(response: response)
-            case let .failure(error): break
-//                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-//                let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                alert.addAction(dismissAction)
-//                self?.present(alert, animated: true)
+            case let .failure(error):
+                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alert.addAction(dismissAction)
             }
         }
     }
