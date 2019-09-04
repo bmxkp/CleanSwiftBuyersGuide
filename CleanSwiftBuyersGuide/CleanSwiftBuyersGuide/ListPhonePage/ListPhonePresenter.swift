@@ -10,11 +10,11 @@ import UIKit
 protocol ListPhonePresenterInterface {
     func presentListPhone(response: ListPhoneModels.GetMobileList.Response)
     func presentListPhoneSorting(response: ListPhoneModels.SortListPhone.Response)
-    func callNavigate()
+    func presentNavigate()
 }
 
 class ListPhonePresenter: ListPhonePresenterInterface {
-    func callNavigate() {
+    func presentNavigate() {
         viewController.displayNavigateView()
     }
 

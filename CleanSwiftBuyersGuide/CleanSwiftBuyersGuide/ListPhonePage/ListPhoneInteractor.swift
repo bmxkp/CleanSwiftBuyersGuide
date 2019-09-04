@@ -24,7 +24,7 @@ class ListPhoneInteractor: ListPhoneInteractorInterface {
 
     func selectedPhone(request: getIndex.Request) {
         selectedItem = phones[request.indexPath]
-        self.presenter.callNavigate()
+        self.presenter.presentNavigate()
     }
 
     func getApi(request: ListPhoneModels.GetMobileList.Request) {

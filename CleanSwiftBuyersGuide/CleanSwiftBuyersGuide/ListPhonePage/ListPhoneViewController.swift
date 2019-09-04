@@ -40,7 +40,10 @@ class ListPhoneViewController: UIViewController, ListPhoneViewControllerInterfac
         router.navigationtoDetail()
     }
 
-    private func sorting(alertAction: UIAlertAction) {
+    private func sorting(sortingCase: ListPhoneModels.SortListPhone.sortingCase) {
+        let cases = ListPhoneModels.SortListPhone.Request(sortingCase: sortingCase)
+        interactor.getApiSorting(request: cases)
+        tableView.reloadData()
     }
 
     @IBAction func actionSort(_ sender: Any) {
@@ -48,16 +51,15 @@ class ListPhoneViewController: UIViewController, ListPhoneViewControllerInterfac
                                       message: "Sorting",
                                       preferredStyle: .alert)
         let sortLowtoHight = UIAlertAction(title: "Sort Low to Hight", style: .default, handler: { (_) -> Void in
-            self.interactor.getApiSorting(request: ListPhoneModels.SortListPhone.Request(sortingCase: .lowtoHight))
-            self.tableView.reloadData()
+            self.sorting(sortingCase: .lowtoHight)
         })
         let sortHighttoLow = UIAlertAction(title: "Sort Hight to Low", style: .default, handler: { (_) -> Void in
-            self.interactor.getApiSorting(request: ListPhoneModels.SortListPhone.Request(sortingCase: .highttoLow))
-            self.tableView.reloadData()
+            self.sorting(sortingCase: .highttoLow)
+
         })
         let sortRating = UIAlertAction(title: "Rating", style: .default, handler: { (_) -> Void in
-            self.interactor.getApiSorting(request: ListPhoneModels.SortListPhone.Request(sortingCase: .rating))
-            self.tableView.reloadData()
+            self.sorting(sortingCase: .rating)
+
         })
 
         let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: { (_) -> Void in })
