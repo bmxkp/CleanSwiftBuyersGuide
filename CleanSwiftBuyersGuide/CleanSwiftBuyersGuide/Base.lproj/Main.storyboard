@@ -83,12 +83,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="descriptLabel" destination="1a3-OO-pX3" id="UgN-0I-Rdy"/>
-                                            <outlet property="nameLabel" destination="3nA-jr-szB" id="5OW-CR-fds"/>
-                                            <outlet property="phoneImageView" destination="m0f-nJ-Zhu" id="mxR-Ir-Uk1"/>
-                                            <outlet property="priceLabel" destination="O1N-1f-K4T" id="bOX-b8-viy"/>
-                                            <outlet property="ratingLabel" destination="vZA-Ld-KsP" id="SDk-5p-9mv"/>
-                                            <segue destination="kV5-91-aWo" kind="show" identifier="listDetail" id="2Ky-m5-mMw"/>
+                                            <outlet property="descriptLabel" destination="1a3-OO-pX3" id="QVO-Bo-5Et"/>
+                                            <outlet property="nameLabel" destination="3nA-jr-szB" id="u6l-Tf-LAF"/>
+                                            <outlet property="phoneImageView" destination="m0f-nJ-Zhu" id="GYJ-jW-mEa"/>
+                                            <outlet property="priceLabel" destination="O1N-1f-K4T" id="Yj9-Oz-Qca"/>
+                                            <outlet property="ratingLabel" destination="vZA-Ld-KsP" id="j3g-WF-qX6"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -111,6 +110,7 @@
                     <connections>
                         <outlet property="tableView" destination="0f0-qp-zDq" id="oKE-y3-YO8"/>
                         <outlet property="view" destination="mRl-7H-ysy" id="Hdo-rA-BuX"/>
+                        <segue destination="kV5-91-aWo" kind="show" identifier="listDetail" id="UHu-Sd-hGC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="33c-TI-QPZ" sceneMemberID="firstResponder"/>

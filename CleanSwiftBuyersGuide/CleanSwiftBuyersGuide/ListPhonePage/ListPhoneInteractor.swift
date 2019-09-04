@@ -11,23 +11,21 @@ protocol ListPhoneInteractorInterface {
     func getApi(request: ListPhoneModels.GetMobileList.Request)
     func getApiSorting(request: ListPhoneModels.SortListPhone.Request)
     func selectedPhone(request: getIndex.Request)
-   
     var phones: [ApiPhone] { get set }
     var selectedItem: ApiPhone? { get set }
-//    var selectedPhone: displayedPhone? { get set }
 }
 
 class ListPhoneInteractor: ListPhoneInteractorInterface {
     var selectedItem: ApiPhone?
-    var mobileId: Int!
-    func selectedPhone(request: getIndex.Request) {
-        selectedItem = phones[request.indexPath]
-    }
-
     var phones: [ApiPhone] = []
     weak var viewController: ListPhoneViewController!
     var presenter: ListPhonePresenterInterface!
     var selectedPhone: displayedPhone?
+
+    func selectedPhone(request: getIndex.Request) {
+        selectedItem = phones[request.indexPath]
+        self.presenter.callNavigate()
+    }
 
     func getApi(request: ListPhoneModels.GetMobileList.Request) {
         ListPhoneWorker.shared.getPhoneInfo { [weak self] result in

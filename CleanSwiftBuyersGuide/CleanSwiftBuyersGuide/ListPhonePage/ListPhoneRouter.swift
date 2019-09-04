@@ -14,7 +14,7 @@ protocol ListPhoneRouterInput {
 class ListPhoneRouter {
     weak var viewController: ListPhoneViewController!
     let identifierTable = "listDetail"
-    func passDatatoNextScene(segue: UIStoryboardSegue, displayview: [Any]) {
+    func passDatatoNextScene(segue: UIStoryboardSegue) {
         if segue.identifier == identifierTable {
            let destinationVC = segue.destination as? ListPhoneDetailViewController
                 destinationVC?.interactor.selectedPhones = viewController.interactor.selectedItem

@@ -10,6 +10,7 @@ import UIKit
 
 protocol ListPhoneViewControllerInterface: class {
     func displayListPhone(viewModel: ListPhoneModels.GetMobileList.ViewModel)
+    func displayNavigateView()
 }
 
 class ListPhoneViewController: UIViewController, ListPhoneViewControllerInterface {
@@ -18,14 +19,28 @@ class ListPhoneViewController: UIViewController, ListPhoneViewControllerInterfac
     @IBOutlet var tableView: UITableView!
     var interactor: ListPhoneInteractorInterface!
     var router: ListPhoneRouter!
+    static let CellIdentifier: String = "PhoneTableViewCell"
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        interactor.getApi(request: ListPhoneModels.GetMobileList.Request())
+    }
 
     func displayListPhone(viewModel: ListPhoneModels.GetMobileList.ViewModel) {
         if viewModel.success {
             displayedView = viewModel.Array
             tableView.reloadData()
+
         } else {
             createAlert(title: "WARNING", message: "")
         }
+    }
+
+    func displayNavigateView() {
+        router.navigationtoDetail()
+    }
+
+    private func sorting(alertAction: UIAlertAction) {
     }
 
     @IBAction func actionSort(_ sender: Any) {
@@ -55,18 +70,7 @@ class ListPhoneViewController: UIViewController, ListPhoneViewControllerInterfac
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var indexpath = tableView.indexPathForSelectedRow
-        let index = getIndex.Request(indexPath: indexpath!.row)
-        interactor.selectedPhone(request: index)
-        router.passDatatoNextScene(segue: segue, displayview: [])
-    }
-
-    func createAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in alert.dismiss(animated: true, completion: nil)
-        }))
-        present(alert, animated: true, completion: nil)
+        router.passDatatoNextScene(segue: segue)
     }
 
     override func awakeFromNib() {
@@ -88,9 +92,12 @@ class ListPhoneViewController: UIViewController, ListPhoneViewControllerInterfac
         viewController.router = router
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        interactor.getApi(request: ListPhoneModels.GetMobileList.Request())
+    func createAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in alert.dismiss(animated: true, completion: nil)
+        }))
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -110,12 +117,8 @@ extension ListPhoneViewController: UITableViewDataSource {
 }
 
 extension ListPhoneViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        interactor.selectedPhone(request: getIndex.Request(indexPath: indexPath.row))
+        interactor.selectedPhone(request: getIndex.Request(indexPath: indexPath.row))
     }
 }
