@@ -56,19 +56,31 @@ class ListPhoneInteractorTests: XCTestCase {
         }
     }
 
-//
-    //  // MARK: Tests
+    class workerSpy: ListPhoneWorker {
+        override func getPhoneInfo(completion: @escaping (Result<[ApiPhone], Error>) -> Void) {
+            completion(.success([ApiPhone(id: 0, name: "pro", price: 100.0, thumbImageURL: "", rating: 10.0, description: "")]))
+        }
+    }
+
+    // MARK: Tests
+
     // Given
     func testGetApi() {
+        sut.worker = workerSpy()
+        let request = ListPhoneModels.GetMobileList.Request()
+//      when
+        sut.getApi(request: request)
+//      then
+        if let response = presenterSpy.listResponse {
+            XCTAssertEqual(response.Array.count, 1)
+            XCTAssertEqual(response.Array[0].name, "pro")
+
+        } else {
+            XCTFail()
+        }
     }
 
     func testGetApiSorting() {
     }
 
-//    // When
-//    sut.doSomething(request: request)
-//
-//    // Then
-//    XCTAssertTrue(spy.presentSomethingCalled, "doSomething(request:) should ask the presenter to format the result")
-    //  }
 }

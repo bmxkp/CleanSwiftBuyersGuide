@@ -15,7 +15,7 @@ protocol APIManagerProtocol {
 }
 
 class ListPhoneWorker: APIManagerProtocol {
-    static let shared: ListPhoneWorker = ListPhoneWorker()
+
     func getPhoneInfo(completion: @escaping (Swift.Result<[ApiPhone], Error>) -> Void) {
         let baseURL: String = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
         AF.request(baseURL)

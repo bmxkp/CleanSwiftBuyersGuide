@@ -18,9 +18,9 @@ protocol ListPhoneInteractorInterface {
 class ListPhoneInteractor: ListPhoneInteractorInterface {
     var selectedItem: ApiPhone?
     var phones: [ApiPhone] = []
-    weak var viewController: ListPhoneViewController!
     var presenter: ListPhonePresenterInterface!
     var selectedPhone: DisplayedPhone?
+    var worker: ListPhoneWorker = ListPhoneWorker()
 
     func selectedPhone(request: GetIndex.Request) {
         selectedItem = phones[request.indexPath]
@@ -28,7 +28,7 @@ class ListPhoneInteractor: ListPhoneInteractorInterface {
     }
 
     func getApi(request: ListPhoneModels.GetMobileList.Request) {
-        ListPhoneWorker.shared.getPhoneInfo { [weak self] result in
+        worker.getPhoneInfo { [weak self] result in
             switch result {
             case let .success(phones):
                 self?.phones = phones
