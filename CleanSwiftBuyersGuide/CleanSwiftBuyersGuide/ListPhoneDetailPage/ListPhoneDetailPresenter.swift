@@ -9,27 +9,22 @@
 import Foundation
 
 protocol ListPhoneDetailPresenterInterface {
-    func presentListDetail(reponse: ListDetailPhoneModels.SetMobileList.Response)
+    func presentListDetail(reponse: ListPhoneDetailModels.SetMobileList.Response)
     func presentImages(response: GetImage.Response)
 }
 
 class ListPhoneDetailPresenter: ListPhoneDetailPresenterInterface {
-    
+    weak var viewController: ListPhoneDetailViewControllerInterface!
+
     func presentImages(response: GetImage.Response) {
         let response: [ApiImages] = response.Array
         let viewImages = GetImage.ViewModel(success: true, Array: response)
-        self.viewController.displayImage(viewModel: viewImages)
-
+        viewController.displayImage(viewModel: viewImages)
     }
-    
-    weak var viewController: ListPhoneDetailViewController!
 
-    func presentListDetail(reponse: ListDetailPhoneModels.SetMobileList.Response) {
+    func presentListDetail(reponse: ListPhoneDetailModels.SetMobileList.Response) {
         let response: ApiPhone = reponse.item
-        let viewModel = ListDetailPhoneModels.SetMobileList.ViewModel(item: response)
+        let viewModel = ListPhoneDetailModels.SetMobileList.ViewModel(item: response)
         viewController.displayedListPhone(viewModel: viewModel)
     }
-    
-    
 }
-

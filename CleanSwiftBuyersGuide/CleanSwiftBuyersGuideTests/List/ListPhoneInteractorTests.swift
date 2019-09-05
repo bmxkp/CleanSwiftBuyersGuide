@@ -58,7 +58,7 @@ class ListPhoneInteractorTests: XCTestCase {
 
     class workerSpy: ListPhoneWorker {
         override func getPhoneInfo(completion: @escaping (Result<[ApiPhone], Error>) -> Void) {
-            completion(.success([ApiPhone(id: 0, name: "pro", price: 100.0, thumbImageURL: "", rating: 10.0, description: "")]))
+            completion(.success([ApiPhone(id: 0, name: "pro", price: 100.0, thumbImageURL: "", rating: 10.9, description: "")]))
         }
     }
 
@@ -72,8 +72,8 @@ class ListPhoneInteractorTests: XCTestCase {
         sut.getApi(request: request)
 //      then
         if let response = presenterSpy.listResponse {
-            XCTAssertEqual(response.Array.count, 1)
-            XCTAssertEqual(response.Array[0].name, "pro")
+            let phone = ApiPhone(id: 0, name: "pro", price: 100.0, thumbImageURL: "", rating: 10.9, description: "")
+            XCTAssertEqual(response.Array, [phone])
 
         } else {
             XCTFail()
@@ -81,6 +81,12 @@ class ListPhoneInteractorTests: XCTestCase {
     }
 
     func testGetApiSorting() {
-    }
+        let request = ListPhoneModels.SortListPhone.Request(sortingCase: .highttoLow)
+        sut.getApiSorting(request: request)
 
+        if let response = presenterSpy.listResponse {
+            XCTAssertEqual(response.Array.count, 1)
+            XCTAssertEqual(response.Array[0].id, 0)
+        }
+    }
 }

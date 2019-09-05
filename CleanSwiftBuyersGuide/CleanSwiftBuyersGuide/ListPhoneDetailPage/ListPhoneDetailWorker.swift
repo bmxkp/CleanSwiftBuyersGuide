@@ -15,7 +15,6 @@ protocol APIManagerProtocolImages {
 }
 
 class ListPhoneDetailWorker: APIManagerProtocolImages {
-    static let shared: ListPhoneDetailWorker = ListPhoneDetailWorker()
     func getApiImages(mobileId: Int, completion: @escaping (Swift.Result<[ApiImages], Error>) -> Void) {
         let baseURL: String = "https://scb-test-mobile.herokuapp.com/api/mobiles/\(mobileId)/images/"
         AF.request(baseURL)
@@ -24,8 +23,9 @@ class ListPhoneDetailWorker: APIManagerProtocolImages {
                 switch response.result {
                 case .success:
                     do {
-                        let ImageSet = try JSONDecoder().decode([ApiImages].self, from: response.data!)
-                        completion(.success(ImageSet))
+                        let json = try JSON(data: response.data!)
+                        let imageSet: [ApiImages] = json.arrayValue.compactMap({ ApiImages(json: $0) })
+                        completion(.success(imageSet))
                     } catch let error {
                         completion(.failure(error))
                     }

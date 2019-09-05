@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol ListPhoneViewDetailControllerInterface: class {
-    func displayedListPhone(viewModel: ListDetailPhoneModels.SetMobileList.ViewModel)
+protocol ListPhoneDetailViewControllerInterface: class {
+    func displayedListPhone(viewModel: ListPhoneDetailModels.SetMobileList.ViewModel)
     func displayImage(viewModel: GetImage.ViewModel)
 }
 
-class ListPhoneDetailViewController: UIViewController, ListPhoneViewDetailControllerInterface,  UICollectionViewDelegate, UICollectionViewDataSource{
+class ListPhoneDetailViewController: UIViewController, ListPhoneDetailViewControllerInterface,  UICollectionViewDelegate, UICollectionViewDataSource{
     @IBOutlet var descriptLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var ratingLabel: UILabel!
@@ -29,10 +29,10 @@ class ListPhoneDetailViewController: UIViewController, ListPhoneViewDetailContro
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let request = ListDetailPhoneModels.SetMobileList.Request()
+        let request = ListPhoneDetailModels.SetMobileList.Request()
         let requestImage = GetImage.Request()
         interactor.getData(Request: request)
-        interactor.getApiImages(request: requestImage)
+        interactor.getApiImagesData(request: requestImage)
     }
 
     override func awakeFromNib() {
@@ -50,7 +50,7 @@ class ListPhoneDetailViewController: UIViewController, ListPhoneViewDetailContro
         }
     }
 
-    func displayedListPhone(viewModel: ListDetailPhoneModels.SetMobileList.ViewModel) {
+    func displayedListPhone(viewModel: ListPhoneDetailModels.SetMobileList.ViewModel) {
         phone = viewModel.item
         title = phone?.name
         descriptLabel.text = phone?.description

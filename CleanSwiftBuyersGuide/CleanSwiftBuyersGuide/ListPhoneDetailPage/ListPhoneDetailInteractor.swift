@@ -9,26 +9,33 @@
 import UIKit
 
 protocol ListPhoneDetailInteractorInterface {
-    func getData(Request: ListDetailPhoneModels.SetMobileList.Request)
-    func getApiImages(request: GetImage.Request)
+    func getData(Request: ListPhoneDetailModels.SetMobileList.Request)
+    func getApiImagesData(request: GetImage.Request)
     var selectedPhones: ApiPhone? { get set }
 }
 
 class ListPhoneDetailInteractor: ListPhoneDetailInteractorInterface {
     var selectedPhones: ApiPhone?
     var images: [ApiImages] = []
+    var worker: ListPhoneDetailWorker = ListPhoneDetailWorker()
 
     weak var viewController: ListPhoneDetailViewController!
     var presenter: ListPhoneDetailPresenterInterface!
 
-    func getData(Request: ListDetailPhoneModels.SetMobileList.Request) {
+    func getData(Request: ListPhoneDetailModels.SetMobileList.Request) {
         let phones = selectedPhones
-        let response = ListDetailPhoneModels.SetMobileList.Response(item: phones!)
+        guard let phone = phones else {
+            return
+        }
+        let response = ListPhoneDetailModels.SetMobileList.Response(item: phone)
         presenter.presentListDetail(reponse: response)
     }
 
-    func getApiImages(request: GetImage.Request) {
-        ListPhoneDetailWorker.shared.getApiImages(mobileId: selectedPhones!.id) { [weak self] result in
+    func getApiImagesData(request: GetImage.Request) {
+        guard let phone = selectedPhones else {
+            return
+        }
+        worker.getApiImages(mobileId: phone.id) { [weak self] result in
             switch result {
             case let .success(image):
                 self?.images = image

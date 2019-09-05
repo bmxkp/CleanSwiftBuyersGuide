@@ -9,14 +9,16 @@
 import SwiftyJSON
 import UIKit
 
-typealias Model = [ApiImages]
-
-struct ApiImages: Codable {
+struct ApiImages: Equatable {
     let url: String
-    let id, mobileID: Int
+    let id: Int
+    let mobileID: Int
+}
 
-    enum CodingKeys: String, CodingKey {
-        case url, id
-        case mobileID = "mobile_id"
+extension ApiImages {
+    init(json: JSON) {
+        url = json["url"].stringValue
+        id = json["id"].intValue
+        mobileID = json["mobile_id"].intValue
     }
 }

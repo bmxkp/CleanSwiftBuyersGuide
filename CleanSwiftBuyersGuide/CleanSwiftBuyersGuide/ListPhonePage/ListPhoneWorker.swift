@@ -11,7 +11,6 @@ import SwiftyJSON
 
 protocol APIManagerProtocol {
     func getPhoneInfo(completion: @escaping (Swift.Result<[ApiPhone], Error>) -> Void)
-//    func getImages(mobileId: Int,completion: @escaping (Swift.Result<[Images], Error>) -> Void)
 }
 
 class ListPhoneWorker: APIManagerProtocol {
@@ -36,26 +35,3 @@ class ListPhoneWorker: APIManagerProtocol {
         }
     }
 }
-//
-//    func getImages(mobileId: Int,completion: @escaping (Swift.Result<[Images], Error>) -> Void){
-//        let baseURL: String = "https://scb-test-mobile.herokuapp.com/api/mobiles/\(mobileId)/images/"
-////        AF.request(baseURL)
-//            .validate()
-//            .responseJSON { response in
-//                switch response.result {
-//                case .success:
-//                    do {
-//                        let ImageSet = try JSONDecoder().decode([Images].self, from: response.data!)
-//                        completion(.success(ImageSet))
-//                    } catch (let error) {
-//                        completion(.failure(error))
-//                    }
-//                case .failure(let error):
-//                    completion(.failure(error))
-//                }
-//        }
-//
-//    }
-//}
-//
-//

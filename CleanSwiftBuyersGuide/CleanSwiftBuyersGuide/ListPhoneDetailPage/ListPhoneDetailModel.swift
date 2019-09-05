@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ListDetailPhoneModels {
+enum ListPhoneDetailModels {
     struct SetMobileList {
         struct Request {
         }
