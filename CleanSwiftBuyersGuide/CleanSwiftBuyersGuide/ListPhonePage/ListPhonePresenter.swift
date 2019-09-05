@@ -11,12 +11,16 @@ protocol ListPhonePresenterInterface {
     func presentListPhone(response: ListPhoneModels.GetMobileList.Response)
     func presentListPhoneSorting(response: ListPhoneModels.SortListPhone.Response)
     func presentNavigate()
+    func presentAlertMaeesage()
 }
 
 class ListPhonePresenter: ListPhonePresenterInterface {
-    
+  func presentAlertMaeesage() {
+    self.viewController.displayAlertMaeesage()
+  }
+  
     weak var viewController: ListPhoneViewControllerInterface!
-    
+
     func presentNavigate() {
         viewController.displayNavigateView()
     }
@@ -28,8 +32,6 @@ class ListPhonePresenter: ListPhonePresenterInterface {
         let displayedPhoneView = ListPhoneModels.GetMobileList.ViewModel(success: true, Array: displayedPhoneReponse)
         viewController.displayListPhone(viewModel: displayedPhoneView)
     }
-
-    
 
     func presentListPhone(response: ListPhoneModels.GetMobileList.Response) {
         let displayedPhoneReponse: [DisplayedPhone] = response.Array.map { phone in

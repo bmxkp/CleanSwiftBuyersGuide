@@ -41,10 +41,8 @@ class ListPhoneDetailInteractor: ListPhoneDetailInteractorInterface {
                 self?.images = image
                 let response = GetImage.Response(success: true, Array: image)
                 self?.presenter.presentImages(response: response)
-            case let .failure(error):
-                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alert.addAction(dismissAction)
+            case let .failure(_):
+                self?.presenter.presentAlertMessage()
             }
         }
     }

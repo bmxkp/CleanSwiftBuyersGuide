@@ -11,6 +11,7 @@ import UIKit
 protocol ListPhoneViewControllerInterface: class {
     func displayListPhone(viewModel: ListPhoneModels.GetMobileList.ViewModel)
     func displayNavigateView()
+    func displayAlertMaeesage()
 }
 
 class ListPhoneViewController: UIViewController, ListPhoneViewControllerInterface {
@@ -32,7 +33,7 @@ class ListPhoneViewController: UIViewController, ListPhoneViewControllerInterfac
             tableView.reloadData()
 
         } else {
-            createAlert(title: "WARNING", message: "")
+            displayAlertMaeesage()
         }
     }
 
@@ -94,12 +95,10 @@ class ListPhoneViewController: UIViewController, ListPhoneViewControllerInterfac
         viewController.router = router
     }
 
-    func createAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in alert.dismiss(animated: true, completion: nil)
-        }))
-        present(alert, animated: true, completion: nil)
+    func displayAlertMaeesage() {
+        let alert = UIAlertController(title: "Error", message: "", preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(dismissAction)
     }
 }
 

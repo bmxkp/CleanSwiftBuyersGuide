@@ -40,7 +40,11 @@ class ListPhoneDetailPresenterTests: XCTestCase {
 
     // MARK: Test doubles
 
-    class ListPhoneDetailViewControllerSpy: ListPhoneDetailViewControllerInterface {
+  class ListPhoneDetailViewControllerSpy: ListPhoneDetailViewControllerInterface {
+    func displayAlertMaeesage() {
+      
+    }
+    
         var listViewModel: ListPhoneDetailModels.SetMobileList.ViewModel?
         var imageView: GetImage.ViewModel?
         func displayedListPhone(viewModel: ListPhoneDetailModels.SetMobileList.ViewModel) {
@@ -65,7 +69,9 @@ class ListPhoneDetailPresenterTests: XCTestCase {
         if let response = viewControllerSpy.listViewModel {
             let selectedPhone = ApiPhone(id: 1, name: "Moto G4 Plus", price: 190.9, thumbImageURL: "", rating: 4.3, description: "")
             XCTAssertEqual(response.item, selectedPhone)
-        }
+        } else {
+          XCTFail()
+      }
     }
 
     func testPresentImage() {

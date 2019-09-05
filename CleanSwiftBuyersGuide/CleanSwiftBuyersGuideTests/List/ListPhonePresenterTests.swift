@@ -49,6 +49,9 @@ class ListPhonePresenterTests: XCTestCase {
 
         func displayNavigateView() {
         }
+
+        func displayAlertMaeesage() {
+        }
     }
 
     // MARK: Tests
@@ -57,7 +60,7 @@ class ListPhonePresenterTests: XCTestCase {
         // Given / mock from interacter
         let response = ListPhoneModels.GetMobileList.Response(success: true, Array: [ApiPhone(id: 1, name: "Moto E4 Plus", price: 179.99, thumbImageURL: "https://cdn.mos.cms.futurecdn.net/grwJkAGWQp4EPpWA3ys3YC-650-80.jpg", rating: 4.9, description: "String")])
 
-        // When / 
+        // When /
         sut.presentListPhone(response: response)
 
         // Then
@@ -86,12 +89,12 @@ class ListPhonePresenterTests: XCTestCase {
     }
 
     func testPresentListPhoneSorting() {
-      //give
+        // give
         let response = ListPhoneModels.SortListPhone.Response(Array: [ApiPhone(id: 3, name: "Moto G4 Plus", price: 179, thumbImageURL: "", rating: 4.7, description: "")])
-      //when
+        // when
         sut.presentListPhoneSorting(response: response)
-      
-      //then
+
+        //then
         if let viewModel = viewControlerSpy.listViewModel {
             let phone = DisplayedPhone(id: 3, name: "Moto G4 Plus", price: 179, thumbImageURL: "", rating: 4.7, description: "")
             XCTAssertEqual(viewModel.Array.count, 1)

@@ -11,14 +11,14 @@ import UIKit
 protocol ListPhoneDetailViewControllerInterface: class {
     func displayedListPhone(viewModel: ListPhoneDetailModels.SetMobileList.ViewModel)
     func displayImage(viewModel: GetImage.ViewModel)
+    func displayAlertMaeesage()
 }
 
-class ListPhoneDetailViewController: UIViewController, ListPhoneDetailViewControllerInterface,  UICollectionViewDelegate, UICollectionViewDataSource{
+class ListPhoneDetailViewController: UIViewController, ListPhoneDetailViewControllerInterface, UICollectionViewDelegate, UICollectionViewDataSource {
     @IBOutlet var descriptLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var ratingLabel: UILabel!
     @IBOutlet var sliderCollection: UICollectionView!
-    @IBOutlet var viewCell: UIView!
 
 
     var router: ListPhoneDetailRouter!
@@ -43,19 +43,25 @@ class ListPhoneDetailViewController: UIViewController, ListPhoneDetailViewContro
     func displayImage(viewModel: GetImage.ViewModel) {
         if viewModel.success {
             displayedImages = viewModel.Array
-            self.sliderCollection.reloadData()
+            sliderCollection.reloadData()
 
         } else {
-//            createAlert(title: "WARNING", message: "")
+            displayAlertMaeesage()
         }
+    }
+
+    func displayAlertMaeesage() {
+        let alert = UIAlertController(title: "Error", message: "", preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(dismissAction)
     }
 
     func displayedListPhone(viewModel: ListPhoneDetailModels.SetMobileList.ViewModel) {
         phone = viewModel.item
         title = phone?.name
         descriptLabel.text = phone?.description
-        ratingLabel.text = "Rating: \(phone?.rating)"
-        priceLabel.text = "Price: $\(phone?.price)"
+      ratingLabel.text = "Rating: \(phone!.rating)"
+        priceLabel.text = "Price: $\(phone!.price)"
     }
 
     private func configure(viewController: ListPhoneDetailViewController) {
@@ -72,8 +78,6 @@ class ListPhoneDetailViewController: UIViewController, ListPhoneDetailViewContro
         viewController.router = router
     }
 
-
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return displayedImages.count
     }
@@ -81,10 +85,9 @@ class ListPhoneDetailViewController: UIViewController, ListPhoneDetailViewContro
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! ImageCollectionViewCell
         let image: ApiImages = displayedImages[indexPath.row]
-        if image.url.contains("http") || image.url.contains("https"){
+        if image.url.contains("http") || image.url.contains("https") {
             cell.imageView.kf.setImage(with: URL(string: image.url))
-        }
-        else {
+        } else {
             cell.imageView.kf.setImage(with: URL(string: "http://\(image.url)"))
         }
         return cell

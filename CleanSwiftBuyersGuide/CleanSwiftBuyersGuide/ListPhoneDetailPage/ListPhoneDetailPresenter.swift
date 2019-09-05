@@ -11,10 +11,15 @@ import Foundation
 protocol ListPhoneDetailPresenterInterface {
     func presentListDetail(reponse: ListPhoneDetailModels.SetMobileList.Response)
     func presentImages(response: GetImage.Response)
+    func presentAlertMessage()
 }
 
 class ListPhoneDetailPresenter: ListPhoneDetailPresenterInterface {
     weak var viewController: ListPhoneDetailViewControllerInterface!
+
+    func presentAlertMessage() {
+        self.viewController.displayAlertMaeesage()
+    }
 
     func presentImages(response: GetImage.Response) {
         let response: [ApiImages] = response.Array

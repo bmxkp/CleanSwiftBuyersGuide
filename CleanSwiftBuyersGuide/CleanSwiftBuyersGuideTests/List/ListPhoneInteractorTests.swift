@@ -54,6 +54,9 @@ class ListPhoneInteractorTests: XCTestCase {
 
         func presentNavigate() {
         }
+
+        func presentAlertMaeesage() {
+        }
     }
 
     class workerSpy: ListPhoneWorker {
@@ -80,13 +83,42 @@ class ListPhoneInteractorTests: XCTestCase {
         }
     }
 
+    var arrayList: [ApiPhone] = []
+    let list = ApiPhone(id: 0, name: "pro", price: 100.0, thumbImageURL: "", rating: 3.9, description: "")
+    let list2 = ApiPhone(id: 1, name: "pro", price: 120.0, thumbImageURL: "", rating: 8.9, description: "")
+    let list3 = ApiPhone(id: 2, name: "pro", price: 140.0, thumbImageURL: "", rating: 5.9, description: "")
+
     func testGetApiSorting() {
+//        var arrayList: [ApiPhone] = []
+        arrayList.append(list)
+        arrayList.append(list2)
+        arrayList.append(list3)
+        sut.phones = arrayList
+
         let request = ListPhoneModels.SortListPhone.Request(sortingCase: .highttoLow)
         sut.getApiSorting(request: request)
 
-        if let response = presenterSpy.listResponse {
-            XCTAssertEqual(response.Array.count, 1)
+        if let response = presenterSpy.listResponseSorting {
+            XCTAssertEqual(response.Array.count, 3)
+            XCTAssertEqual(response.Array[0].id, 2)
+        } else {
+            XCTFail()
+        }
+    }
+
+    func testGetApiSortingLowtoHight() {
+        arrayList.append(list)
+        arrayList.append(list2)
+        arrayList.append(list3)
+        sut.phones = arrayList
+
+        let request2 = ListPhoneModels.SortListPhone.Request(sortingCase: .lowtoHight)
+        sut.getApiSorting(request: request2)
+        if let response = presenterSpy.listResponseSorting {
+            XCTAssertEqual(response.Array.count, 3)
             XCTAssertEqual(response.Array[0].id, 0)
+        } else {
+            XCTFail()
         }
     }
 }

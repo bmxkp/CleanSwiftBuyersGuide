@@ -24,7 +24,7 @@ class ListPhoneInteractor: ListPhoneInteractorInterface {
 
     func selectedPhone(request: GetIndex.Request) {
         selectedItem = phones[request.indexPath]
-        self.presenter.presentNavigate()
+        presenter.presentNavigate()
     }
 
     func getApi(request: ListPhoneModels.GetMobileList.Request) {
@@ -34,10 +34,8 @@ class ListPhoneInteractor: ListPhoneInteractorInterface {
                 self?.phones = phones
                 let response = ListPhoneModels.GetMobileList.Response(success: true, Array: phones)
                 self?.presenter.presentListPhone(response: response)
-            case let .failure(error):
-                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alert.addAction(dismissAction)
+            case .failure:
+                self?.presenter.presentAlertMaeesage()
             }
         }
     }
@@ -58,7 +56,7 @@ class ListPhoneInteractor: ListPhoneInteractorInterface {
             var sortingPhones = ListPhoneModels.SortListPhone.Response(Array: phones)
             presenter.presentListPhoneSorting(response: sortingPhones)
         default:
-            print("error")
+            presenter.presentAlertMaeesage()
         }
     }
 }

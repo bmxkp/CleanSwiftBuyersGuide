@@ -40,7 +40,15 @@ class ListPhoneDetailInteractorTests: XCTestCase {
 
     // MARK: Test doubles
 
-    class ListPhoneDetailPresenterSpy: ListPhoneDetailPresenterInterface {
+  class ListPhoneDetailPresenterSpy: ListPhoneDetailPresenterInterface {
+    func presentAlertMessage() {
+      
+    }
+    
+    func alertMessage() {
+      
+    }
+    
         var listResponse: ListPhoneDetailModels.SetMobileList.Response?
         var imageResponse: GetImage.Response?
         func presentListDetail(reponse: ListPhoneDetailModels.SetMobileList.Response) {
@@ -69,24 +77,28 @@ class ListPhoneDetailInteractorTests: XCTestCase {
 
 //    when
         sut.getApiImagesData(request: request)
-
-        //  then
+//  then
         if let request = presenterSpy.imageResponse {
             let image = ApiImages(url: "https", id: 2, mobileID: 2)
             XCTAssertEqual(request.success, true)
             XCTAssertEqual(request.Array, [image])
-        }
+        } else {
+          XCTFail()
+      }
     }
 
     func testGetData() {
 //      given
       let request = ListPhoneDetailModels.SetMobileList.Request()
+      sut.selectedPhones = ApiPhone(id: 1, name: "Moto", price: 199.9, thumbImageURL: "", rating: 5.4, description: "")
 //      when
       sut.getData(Request: request)
 //      then
       if let request = presenterSpy.listResponse {
         let selectPhone = ApiPhone(id: 1, name: "Moto", price: 199.9, thumbImageURL: "", rating: 5.4, description: "")
         XCTAssertEqual(request.item, selectPhone )
+      } else {
+        XCTFail()
       }
 
     }
